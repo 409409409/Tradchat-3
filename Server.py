@@ -22,7 +22,8 @@ room_names = room_names_db.cursor()
 if not accounts_db_exists:
     accounts.execute('''
         CREATE TABLE accounts (
-            username TEXT PRIMARY KEY,
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username TEXT NOT NULL,
             password TEXT NOT NULL,
             DOB TEXT NOT NULL
         )
@@ -32,7 +33,8 @@ if not accounts_db_exists:
 if not rooms_db_exists:
     room_names.execute('''
         CREATE TABLE rooms (
-            roomname TEXT PRIMARY KEY,
+            roomid INTEGER PRIMARY KEY AUTOINCREMENT,
+            roomname TEXT NOT NULL,
             roomtype TEXT NOT NULL,
             invites TEXT
         )
