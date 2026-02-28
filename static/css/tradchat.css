@@ -1,0 +1,43 @@
+/* ================================================
+   TRADCHAT 3: THE DESIGN SYSTEM (MASTER)
+   Only Global Variables and Shared Components here!
+   ================================================ */
+
+:root {
+  --color-light: #F5F0E8;
+  --color-medium: #B8A99A;
+  --color-dark: #2C2416;
+  --color-accent: #C8860A;
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body: 'Source Sans 3', Helvetica, sans-serif;
+  --transition-speed: 0.3s;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-light);
+  color: var(--color-dark);
+  margin: 0;
+}
+
+/* GLOBAL BUTTON SYSTEM */
+.btn-sharp, .btn-bubbly, .btn-soft {
+  border: none;
+  padding: 10px 22px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-speed);
+}
+
+.btn-sharp { border-radius: 0px; }
+.btn-soft { border-radius: 8px; }
+.btn-bubbly { border-radius: 25px; } /* Max bubble! */
+
+/* Playful Global Rule */
+img { border-radius: 15px; }
+
+/* Bouncy Interaction for team to see */
+.btn-bubbly:active { transform: scale(0.92); }

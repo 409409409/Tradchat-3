@@ -1,0 +1,79 @@
+/* 1. ABOUT SECTION STYLES */
+.about-section {
+  padding: 48px 32px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.about-section-heading {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  color: var(--color-dark);
+  margin-bottom: 24px;
+  border-bottom: 2px solid var(--color-medium);
+  padding-bottom: 10px;
+}
+
+/* 2. HERO SECTION STYLES */
+.hero-section {
+  width: 100%;
+  position: relative;
+}
+
+.hero-background-image {
+  width: 100%;
+  height: 280px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-text-overlay {
+  position: absolute;
+  bottom: 32px;
+  left: 32px;
+}
+
+.hero-main-heading {
+  font-family: var(--font-heading);
+  font-size: 36px;
+  color: var(--color-dark);
+  text-shadow: 1px 2px 8px rgba(255, 255, 255, 0.6);
+  margin-bottom: 6px;
+}
+
+.hero-subheading {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-dark);
+  text-shadow: 1px 1px 4px rgba(255, 255, 255, 0.5);
+}
+
+/* 3. BUTTON STYLES */
+.btn-sharp, .btn-bubbly, .btn-soft {
+  border: none;
+  padding: 10px 22px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-speed);
+}
+
+.btn-sharp { border-radius: 0px; }
+.btn-soft { border-radius: 8px; }
+.btn-bubbly { border-radius: 25px; } /* Max bubble! */
+
+/* 4. GLOBAL STYLES */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-light);
+  color: var(--color-dark);
+  margin: 0;
+}
+
+/* 5. PLAYFUL GLOBAL RULE */
+img { border-radius: 15px; }
+
+/* 6. BOUNCY INTERACTION */
+.btn-bubbly:active { transform: scale(0.92); }

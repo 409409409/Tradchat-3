@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TradChat – The Future of Safe Social Media</title>
+
+  <!-- Link to our external stylesheet. All visual styling lives in tradchat.css -->
+  <link rel="stylesheet" href="/static/css/tradchat.css" />
+
+  <!-- Google Fonts: 'Playfair Display' for headings, 'Source Sans 3' for body text -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Sans+3:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body>
+
+  <!-- =============================================
+       THE LOGIN MODAL OVERLAY
+       This is the popup the user sees FIRST.
+       It sits on top of everything else.
+       When dismissed, it fades away and reveals
+       the home page underneath.
+  ============================================= -->
+  <div id="login-modal-overlay" class="login-modal-overlay">
+
+    <!-- The white card in the center of the overlay -->
+    <div class="login-modal-card">
+
+      <!-- X button to close modal -->
+      <button class="login-modal-close-x" onclick="closeLoginModal()">×</button>
+
+      <!-- Logo at the top of the card -->
+      <img class="login-modal-logo-img" src="/static/logo.png" alt="TradChat Logo" width="80" height="80">
+
+      <!-- The heading inside the modal -->
+      <h2 class="login-modal-heading">Welcome Back</h2>
+      <p class="login-modal-subheading">Log in to TradChat</p>
+
+      <!-- Email input field -->
+      <div class="login-modal-field-group">
+        <label class="login-modal-label" for="email-input">Email</label>
+        <input
+          type="email"
+          id="email-input"
+          class="login-modal-input"
+          placeholder="you@example.com"
+        />
+      </div>
+
+      <!-- Password input field -->
+      <div class="login-modal-field-group">
+        <label class="login-modal-label" for="password-input">Password</label>
+        <input
+          type="password"
+          id="password-input"
+          class="login-modal-input"
+          placeholder="••••••••"
+        />
+      </div>
+
+      <!-- The main Log In button. Uses .btn-soft for a friendly rounded look -->
+      <button
+        class="btn-soft login-modal-submit-button"
+        onclick="closeLoginModal()"
+      >
+        Log In
+      </button>
+
+      <!-- A link for users who don't have an account yet -->
+      <p class="login-modal-signup-link">
+        Don't have an account?
+        <a href="#" class="login-modal-anchor">Sign up</a>
+      </p>
+
+    </div><!-- end .login-modal-card -->
+
+  </div><!-- end #login-modal-overlay -->
+
+
+  <!-- =============================================
+       THE HOME PAGE
+       This is the main content of the site.
+       It starts blurred/dimmed while the modal
+       is open, then fades in when modal closes.
+  ============================================= -->
+  <div id="home-page" class="home-page home-page-blurred">
+
+    <!-- ---- NAVIGATION BAR ---- -->
+    <!-- The top bar that appears on every page -->
+    <nav class="navbar">
+
+      <!-- Left side: Logo + brand name -->
+      <div class="navbar-brand">
+        <!-- Logo image -->
+        <img class="navbar-logo-img" src="/static/logo.png" alt="TradChat Logo" width="28" height="28">
+        <span class="navbar-brand-name">TradChat</span>
+      </div>
+
+      <!-- Right side: Log In and Sign Up buttons -->
+      <div class="navbar-button-group">
+        <!-- .btn-sharp gives a crisp, no-rounded-corners look -->
+        <button class="btn-sharp navbar-login-button" onclick="openLoginModal()">
+          Log In
+        </button>
+        <!-- .btn-bubbly gives a pill/bubble shape -->
+        <button class="btn-bubbly navbar-signup-button">
+          Sign Up
+        </button>
+      </div>
+
+    </nav><!-- end .navbar -->
+
+
+    <!-- ---- HERO SECTION ---- -->
+    <!-- The big banner at the top of the page with a background image area -->
+    <section class="hero-section">
+
+      <!-- The background image placeholder (light gray box) -->
+      <div class="hero-background-image">
+
+        <!-- The mountain / landscape image inside the hero -->
+        <img class="hero-placeholder-img" src="/static/graphics/mass.jpg" alt="Hero background image">
+
+        <!-- Text overlaid on top of the hero image -->
+        <div class="hero-text-overlay">
+          <h1 class="hero-main-heading">Welcome To TradChat!</h1>
+          <p class="hero-subheading">The Future of Safe Social Media</p>
+        </div>
+
+      </div><!-- end .hero-background-image -->
+
+    </section><!-- end .hero-section -->
+
+
+    <!-- ---- ABOUT US SECTION ---- -->
+    <!-- A simple content section below the hero -->
+    <section class="about-section">
+
+      <h2 class="about-section-heading">About Us:</h2>
+
+      <div class="about-content-grid">
+
+        <!-- Left text column -->
+        <div class="about-text-column">
+          <p class="about-paragraph">
+            TradChat is built on the belief that online spaces should be safe,
+            respectful, and rooted in timeless values. We provide a platform
+            where communities can connect, share ideas, and grow — free from
+            the noise and negativity found elsewhere.
+          </p>
+          <p class="about-paragraph">
+            Whether you're looking to discuss faith, family, culture, or
+            current events, TradChat gives you the tools to do it with people
+            who share your values.
+          </p>
+          <!-- A call-to-action button using the "in-between" style -->
+          <button class="btn-soft about-learn-more-button">Learn More</button>
+        </div>
+
+        <!-- Right decorative image placeholder column -->
+        <div class="about-image-column">
+          <div class="about-image-placeholder">
+            <!-- Simple image placeholder to fill the box -->
+            <img class="about-placeholder-img" src="" alt="About section image">
+          </div>
+        </div>
+
+      </div><!-- end .about-content-grid -->
+
+    </section><!-- end .about-section -->
+
+
+    <!-- ---- FOOTER ---- -->
+    <!-- The bottom strip of the page -->
+    <footer class="site-footer">
+      <p class="footer-copyright">© 2025 TradChat. All rights reserved.</p>
+    </footer>
+
+  </div><!-- end #home-page -->
+
+
+  <!-- =============================================
+       JAVASCRIPT
+       This small script handles two things:
+       1. closeLoginModal() – hides the popup and
+          un-blurs the home page when user logs in.
+       2. openLoginModal() – shows the popup again
+          if the user clicks "Log In" in the nav.
+  ============================================= -->
+  <script>
+
+    /**
+     * closeLoginModal()
+     * Called when the user clicks the "Log In" button inside the modal.
+     * Step 1: Add the "fade out" CSS class to the overlay so it fades away.
+     * Step 2: Remove the "blurred" CSS class from the home page so it fades in.
+     */
+    function closeLoginModal() {
+      // Grab the modal overlay element from the page
+      var modalOverlay = document.getElementById("login-modal-overlay");
+
+      // Grab the home page element
+      var homePage = document.getElementById("home-page");
+
+      // Add a CSS class that triggers the fade-out animation on the overlay
+      modalOverlay.classList.add("login-modal-overlay-hidden");
+
+      // Remove the blurred class so the home page becomes clear and fully visible
+      homePage.classList.remove("home-page-blurred");
+
+      // After the fade-out animation finishes (0.5 seconds), fully hide the overlay
+      // so it can't accidentally be clicked on anymore
+      setTimeout(function() {
+        modalOverlay.style.display = "none";
+      }, 500); // 500 milliseconds = 0.5 seconds (matches our CSS transition)
+    }
+
+
+    /**
+     * openLoginModal()
+     * Called when the user clicks "Log In" in the navigation bar.
+     * It reverses what closeLoginModal() did — shows the modal again.
+     */
+    function openLoginModal() {
+      // Grab the modal overlay element
+      var modalOverlay = document.getElementById("login-modal-overlay");
+
+      // Grab the home page element
+      var homePage = document.getElementById("home-page");
+
+      // Make sure the overlay is visible again (undo the display:none)
+      modalOverlay.style.display = "flex";
+
+      // Remove the "hidden" class so it fades back in
+      modalOverlay.classList.remove("login-modal-overlay-hidden");
+
+      // Add the blurred class back to the home page so it dims again
+      homePage.classList.add("home-page-blurred");
+    }
+
+  </script>
+
+</body>
+</html>
