@@ -1,20 +1,323 @@
-/* 1. ABOUT SECTION STYLES */
-.about-section {
-  padding: 48px 32px;
-  max-width: 960px;
-  margin: 0 auto;
+/* ================================================
+   WELCOME PAGE — welcome.css
+   Page-specific styles for the TradChat welcome/home page.
+   Global variables and shared button styles live in the master CSS.
+   ================================================ */
+
+
+/* ================================================
+   EXTRA BASE RESET
+   ================================================ */
+
+/* Remove default margin and padding from everything */
+body, h1, h2, h3, p, ul, li {
+  margin: 0;
+  padding: 0;
 }
 
-.about-section-heading {
+/* Hide horizontal scrollbar while modal is open */
+body {
+  overflow-x: hidden;
+}
+
+
+/* ================================================
+   LOGIN MODAL OVERLAY
+   The dark background that covers the whole screen
+   while the login popup is visible.
+   ================================================ */
+
+.login-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-overlay);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 1;
+  transition: opacity var(--transition-speed) ease;
+}
+
+.login-modal-overlay-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+
+/* ================================================
+   LOGIN MODAL CARD
+   ================================================ */
+
+.login-modal-card {
+  background-color: #ffffff;
+  padding: 50px 40px 40px 40px;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 380px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: slide-up-fade-in 0.4s ease both;
+}
+
+@keyframes slide-up-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* ================================================
+   LOGO CIRCLE (inside the login modal)
+   ================================================ */
+
+.login-modal-logo-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: var(--color-medium);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.login-modal-logo-text {
+  font-size: 20px;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.login-modal-close-x {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: transparent;
+  color: var(--color-medium);
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+.login-modal-close-x:hover {
+  background-color: var(--color-medium);
+  color: #ffffff;
+}
+
+.login-modal-logo-label {
+  font-size: 10px;
+  color: #ffffff;
+  margin-top: 2px;
+}
+
+
+/* ================================================
+   MODAL HEADING & SUBHEADING
+   ================================================ */
+
+.login-modal-heading {
   font-family: var(--font-heading);
-  font-size: 22px;
+  font-size: 26px;
   color: var(--color-dark);
-  margin-bottom: 24px;
-  border-bottom: 2px solid var(--color-medium);
-  padding-bottom: 10px;
+  margin-bottom: 4px;
+  text-align: center;
 }
 
-/* 2. HERO SECTION STYLES */
+.login-modal-subheading {
+  font-size: 14px;
+  color: var(--color-medium);
+  margin-bottom: 28px;
+  text-align: center;
+}
+
+
+/* ================================================
+   MODAL FORM FIELDS
+   ================================================ */
+
+.login-modal-field-group {
+  width: 100%;
+  margin-bottom: 18px;
+}
+
+.login-modal-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-dark);
+  margin-bottom: 6px;
+}
+
+.login-modal-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--color-medium);
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--color-dark);
+  background-color: #fafafa;
+  transition: border-color var(--transition-speed);
+  outline: none;
+}
+
+.login-modal-input:focus {
+  border-color: var(--color-accent);
+}
+
+
+/* ================================================
+   MODAL SUBMIT BUTTON
+   ================================================ */
+
+.login-modal-submit-button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 8px;
+  background-color: var(--color-dark);
+  color: #ffffff;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+}
+
+.login-modal-submit-button:hover {
+  background-color: var(--color-accent);
+}
+
+
+/* ================================================
+   MODAL SIGN UP LINK
+   ================================================ */
+
+.login-modal-signup-link {
+  margin-top: 20px;
+  font-size: 13px;
+  color: var(--color-medium);
+  text-align: center;
+}
+
+.login-modal-anchor {
+  color: var(--color-accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.login-modal-anchor:hover {
+  text-decoration: underline;
+}
+
+
+/* ================================================
+   HOME PAGE CONTAINER
+   ================================================ */
+
+.home-page {
+  transition: filter var(--transition-speed) ease,
+              opacity var(--transition-speed) ease;
+  opacity: 1;
+  filter: none;
+}
+
+.home-page-blurred {
+  filter: blur(4px) brightness(0.6);
+  pointer-events: none;
+}
+
+
+/* ================================================
+   NAVIGATION BAR
+   ================================================ */
+
+.navbar {
+  width: 100%;
+  height: 56px;
+  background-color: var(--color-dark);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navbar-logo-icon {
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--color-medium);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  color: var(--color-medium);
+}
+
+.navbar-brand-name {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  color: var(--color-light);
+  letter-spacing: 0.5px;
+}
+
+.navbar-button-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navbar-login-button {
+  background-color: transparent;
+  color: var(--color-light);
+  border: 1.5px solid var(--color-medium);
+  padding: 7px 18px;
+  font-size: 13px;
+}
+
+.navbar-login-button:hover {
+  background-color: var(--color-medium);
+  color: var(--color-dark);
+}
+
+.navbar-signup-button {
+  background-color: var(--color-accent);
+  color: #ffffff;
+  padding: 7px 18px;
+  font-size: 13px;
+}
+
+.navbar-signup-button:hover {
+  background-color: #a06d08;
+}
+
+
+/* ================================================
+   HERO SECTION
+   ================================================ */
+
 .hero-section {
   width: 100%;
   position: relative;
@@ -25,6 +328,29 @@
   height: 280px;
   position: relative;
   overflow: hidden;
+}
+
+.hero-placeholder-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hero-background-image::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0.5) 100%
+  );
+  pointer-events: none;
 }
 
 .hero-text-overlay {
@@ -48,32 +374,119 @@
   text-shadow: 1px 1px 4px rgba(255, 255, 255, 0.5);
 }
 
-/* 3. BUTTON STYLES */
-.btn-sharp, .btn-bubbly, .btn-soft {
-  border: none;
-  padding: 10px 22px;
-  font-family: var(--font-body);
-  font-weight: 600;
-  cursor: pointer;
-  transition: all var(--transition-speed);
+
+/* ================================================
+   ABOUT US SECTION
+   ================================================ */
+
+.about-section {
+  padding: 48px 32px;
+  max-width: 960px;
+  margin: 0 auto;
 }
 
-.btn-sharp { border-radius: 0px; }
-.btn-soft { border-radius: 8px; }
-.btn-bubbly { border-radius: 25px; } /* Max bubble! */
-
-/* 4. GLOBAL STYLES */
-*, *::before, *::after { box-sizing: border-box; }
-
-body {
-  font-family: var(--font-body);
-  background-color: var(--color-light);
+.about-section-heading {
+  font-family: var(--font-heading);
+  font-size: 22px;
   color: var(--color-dark);
-  margin: 0;
+  margin-bottom: 24px;
+  border-bottom: 2px solid var(--color-medium);
+  padding-bottom: 10px;
 }
 
-/* 5. PLAYFUL GLOBAL RULE */
-img { border-radius: 15px; }
+.about-content-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
 
-/* 6. BOUNCY INTERACTION */
-.btn-bubbly:active { transform: scale(0.92); }
+.about-text-column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.about-paragraph {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--color-dark);
+}
+
+.about-learn-more-button {
+  align-self: flex-start;
+  background-color: var(--color-dark);
+  color: var(--color-light);
+  padding: 12px 28px;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.about-learn-more-button:hover {
+  background-color: var(--color-accent);
+}
+
+.about-image-column {
+  width: 100%;
+}
+
+.about-image-placeholder {
+  width: 100%;
+  height: 200px;
+  background-color: #d0ccc8;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.about-image-placeholder svg {
+  width: 100%;
+  height: 100%;
+}
+
+
+/* ================================================
+   FOOTER
+   ================================================ */
+
+.site-footer {
+  background-color: var(--color-dark);
+  color: var(--color-medium);
+  text-align: center;
+  padding: 20px 24px;
+  font-size: 13px;
+}
+
+.footer-copyright {
+  letter-spacing: 0.3px;
+}
+
+
+/* ================================================
+   RESPONSIVE DESIGN
+   ================================================ */
+
+@media (max-width: 640px) {
+
+  .about-content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-main-heading {
+    font-size: 26px;
+  }
+
+  .hero-background-image {
+    height: 200px;
+  }
+
+  .hero-text-overlay {
+    bottom: 20px;
+    left: 20px;
+  }
+
+  .login-modal-card {
+    margin: 0 16px;
+    padding: 36px 24px 32px 24px;
+  }
+
+}

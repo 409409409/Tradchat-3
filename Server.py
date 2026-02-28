@@ -31,7 +31,8 @@ if not accounts_db_exists:
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             username TEXT NOT NULL,
             password TEXT NOT NULL,
-            DOB TEXT NOT NULL
+            DOB TEXT NOT NULL,
+            theme TEXT NOT NULL
         )
     ''')
     accounts_db.commit()

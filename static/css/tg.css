@@ -1,0 +1,666 @@
+/* TG */
+:root {
+  /* --color-light: A warm off-white, used for backgrounds and light cards */
+  --color-light: #F5F0E8;
+
+  /* --color-medium: A muted taupe/tan, used for borders, subtle fills */
+  --color-medium: #B8A99A;
+
+  /* --color-dark: A deep charcoal brown, used for text and nav backgrounds */
+  --color-dark: #2C2416;
+
+  /* --color-accent: A warm amber gold, used for highlight buttons & links */
+  --color-accent: #C8860A;
+
+  /* --color-overlay: A semi-transparent dark color for the modal backdrop */
+  --color-overlay: rgba(44, 36, 22, 0.65);
+
+  /* --font-heading: The decorative font for big titles */
+  --font-heading: 'Playfair Display', Georgia, serif;
+
+  /* --font-body: The readable font for paragraphs and UI text */
+  --font-body: 'Source Sans 3', Helvetica, sans-serif;
+
+  /* --transition-speed: How fast animations happen across the page */
+  --transition-speed: 0.5s;
+}
+
+
+/* ================================================
+   CSS RESET & BASE STYLES
+   These rules "reset" the browser's default styles
+   so every browser starts from the same baseline.
+   ================================================ */
+
+/* Apply box-sizing to every element so padding doesn't
+   accidentally make things wider than expected */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin and padding from everything */
+body, h1, h2, h3, p, ul, li {
+  margin: 0;
+  padding: 0;
+}
+
+/* Set the base font and background for the whole page */
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-light);
+  color: var(--color-dark);
+  /* Hide the scrollbar while the modal is open (no jumping) */
+  overflow-x: hidden;
+}
+
+
+/* ================================================
+   BUTTON TYPES
+   Three button styles the designer specified.
+   Every button shares these "base" styles,
+   then each class adds its own border-radius.
+   ================================================ */
+
+/* Shared styles that ALL buttons inherit */
+.btn-sharp,
+.btn-bubbly,
+.btn-soft {
+  /* Remove the default browser button border */
+  border: none;
+  /* Add some comfortable breathing room inside the button */
+  padding: 10px 22px;
+  /* Make the text look nice */
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  /* Show a pointer cursor when the mouse hovers over a button */
+  cursor: pointer;
+  /* Smooth color change on hover */
+  transition: background-color var(--transition-speed),
+              color var(--transition-speed);
+}
+
+/* .btn-sharp: Zero border-radius = sharp, hard corners */
+.btn-sharp {
+  border-radius: 0px;
+}
+
+/* .btn-bubbly: 20px border-radius = very round, pill-like */
+.btn-bubbly {
+  border-radius: 20px;
+}
+
+/* .btn-soft: 8px border-radius = gently rounded, "in-between" */
+.btn-soft {
+  border-radius: 8px;
+}
+
+
+/* ================================================
+   LOGIN MODAL OVERLAY
+   The dark background that covers the whole screen
+   while the login popup is visible.
+   ================================================ */
+
+/* The full-screen dark backdrop */
+.login-modal-overlay {
+  /* Position it so it covers the ENTIRE browser window */
+  position: fixed;  /* "fixed" means it stays put even if you scroll */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  /* The semi-transparent dark color from our design system */
+  background-color: var(--color-overlay);
+
+  /* Use flexbox to center the white card horizontally and vertically */
+  display: flex;
+  justify-content: center;  /* center left-to-right */
+  align-items: center;      /* center top-to-bottom */
+
+  /* Sit on top of everything else (z-index controls stacking order) */
+  z-index: 1000;
+
+  /* Smooth fade in/out animation */
+  opacity: 1;
+  transition: opacity var(--transition-speed) ease;
+}
+
+/* When JavaScript adds this class, the overlay fades to invisible */
+.login-modal-overlay-hidden {
+  opacity: 0;
+  /* pointer-events: none means clicks pass through the invisible overlay */
+  pointer-events: none;
+}
+
+
+/* ================================================
+   LOGIN MODAL CARD
+   The white popup box that holds the login form.
+   ================================================ */
+.login-modal-card {
+  /* White background for the card */
+  background-color: #ffffff;
+
+  /* Generous padding so content doesn't crowd the edges */
+  padding: 50px 40px 40px 40px;
+
+  /* Gently rounded corners */
+  border-radius: 12px;
+
+  /* A soft drop shadow to lift the card off the backdrop */
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+
+  /* Set a comfortable fixed width */
+  width: 100%;
+  max-width: 380px;
+
+  /* Position relative for absolute positioning of close button */
+  position: relative;
+
+  /* Stack all children (logo, heading, inputs) vertically and center them */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /* Slide up gently when it appears */
+  animation: slide-up-fade-in 0.4s ease both;
+}
+
+/* Keyframe animation: starts slightly below and invisible, ends in place */
+@keyframes slide-up-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px); /* start 24px lower */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);    /* end at normal position */
+  }
+}
+
+
+/* ================================================
+   LOGO CIRCLE (inside the login modal)
+   The round circle at the top of the card that
+   represents the TradChat logo placeholder.
+   ================================================ */
+.login-modal-logo-circle {
+  /* Make it a circle using border-radius */
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+
+  /* Medium-gray background for the placeholder */
+  background-color: var(--color-medium);
+
+  /* Center the icon and label inside the circle */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  /* Push the circle to overlap with the card top a little */
+  margin-bottom: 16px;
+}
+
+/* The "X" icon text inside the logo circle */
+.login-modal-logo-text {
+  font-size: 20px;
+  color: #ffffff;
+  line-height: 1;
+}
+
+/* Close X button for modal */
+.login-modal-close-x {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: transparent;
+  color: var(--color-medium);
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+.login-modal-close-x:hover {
+  background-color: var(--color-medium);
+  color: #ffffff;
+}
+
+/* The small "Logo" label under the icon inside the circle */
+.login-modal-logo-label {
+  font-size: 10px;
+  color: #ffffff;
+  margin-top: 2px;
+}
+
+
+/* ================================================
+   MODAL HEADING & SUBHEADING
+   ================================================ */
+.login-modal-heading {
+  font-family: var(--font-heading);
+  font-size: 26px;
+  color: var(--color-dark);
+  margin-bottom: 4px;
+  text-align: center;
+}
+
+.login-modal-subheading {
+  font-size: 14px;
+  color: var(--color-medium);
+  margin-bottom: 28px;
+  text-align: center;
+}
+
+
+/* ================================================
+   MODAL FORM FIELDS (Label + Input)
+   ================================================ */
+
+/* Wraps each label + input pair */
+.login-modal-field-group {
+  /* Full width so it stretches across the card */
+  width: 100%;
+  margin-bottom: 18px;
+}
+
+/* The text label above each input box */
+.login-modal-label {
+  display: block;          /* Put it on its own line */
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-dark);
+  margin-bottom: 6px;
+}
+
+/* The input box itself */
+.login-modal-input {
+  /* Stretch to fill the full width of its container */
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--color-medium);
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--color-dark);
+  background-color: #fafafa;
+  /* Smooth border color change when the user clicks on the field */
+  transition: border-color var(--transition-speed);
+  /* Remove the default browser blue outline */
+  outline: none;
+}
+
+/* When the user clicks on (focuses) the input, highlight the border */
+.login-modal-input:focus {
+  border-color: var(--color-accent);
+}
+
+
+/* ================================================
+   MODAL SUBMIT BUTTON
+   The main "Log In" button inside the modal card.
+   ================================================ */
+.login-modal-submit-button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 8px;
+  background-color: var(--color-dark);
+  color: #ffffff;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+}
+
+/* When the mouse hovers over the button, lighten the background */
+.login-modal-submit-button:hover {
+  background-color: var(--color-accent);
+}
+
+
+/* ================================================
+   MODAL SIGN UP LINK
+   The "Don't have an account? Sign up" text row.
+   ================================================ */
+.login-modal-signup-link {
+  margin-top: 20px;
+  font-size: 13px;
+  color: var(--color-medium);
+  text-align: center;
+}
+
+/* The clickable "Sign up" anchor text */
+.login-modal-anchor {
+  color: var(--color-accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.login-modal-anchor:hover {
+  text-decoration: underline;
+}
+
+
+/* ================================================
+   HOME PAGE CONTAINER
+   The main page content that lives behind the modal.
+   ================================================ */
+.home-page {
+  /* Smooth fade and blur transitions */
+  transition: filter var(--transition-speed) ease,
+              opacity var(--transition-speed) ease;
+
+  /* Start fully visible (modal JS will add blur class on load) */
+  opacity: 1;
+  filter: none;
+}
+
+/* This class is added by JavaScript when the modal is open.
+   It blurs and dims the home page content behind the modal. */
+.home-page-blurred {
+  /* blur() makes everything look out-of-focus */
+  filter: blur(4px) brightness(0.6);
+  /* Prevent clicking on things hidden behind the modal */
+  pointer-events: none;
+}
+
+
+/* ================================================
+   NAVIGATION BAR
+   The horizontal bar at the top of the page.
+   ================================================ */
+.navbar {
+  /* Stretch across the full width */
+  width: 100%;
+  /* Set a comfortable height */
+  height: 56px;
+  /* Dark background matching our design system */
+  background-color: var(--color-dark);
+  /* Put brand on the left, buttons on the right using flexbox */
+  display: flex;
+  justify-content: space-between;  /* push children to opposite ends */
+  align-items: center;             /* center them vertically */
+  /* Padding on the left and right so content doesn't touch the edges */
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+/* Left group: icon + brand name */
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* space between icon and name */
+}
+
+/* The small square "X" logo box in the nav */
+.navbar-logo-icon {
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--color-medium);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  color: var(--color-medium);
+}
+
+/* "TradChat" brand name text */
+.navbar-brand-name {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  color: var(--color-light);
+  letter-spacing: 0.5px;
+}
+
+/* Right group: Log In + Sign Up buttons */
+.navbar-button-group {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* space between the two buttons */
+}
+
+/* "Log In" button — sharp, minimal, outlined style */
+.navbar-login-button {
+  background-color: transparent;
+  color: var(--color-light);
+  border: 1.5px solid var(--color-medium);
+  padding: 7px 18px;
+  font-size: 13px;
+}
+
+.navbar-login-button:hover {
+  background-color: var(--color-medium);
+  color: var(--color-dark);
+}
+
+/* "Sign Up" button — bubbly, accent-colored, stands out */
+.navbar-signup-button {
+  background-color: var(--color-accent);
+  color: #ffffff;
+  padding: 7px 18px;
+  font-size: 13px;
+}
+
+.navbar-signup-button:hover {
+  background-color: #a06d08; /* slightly darker on hover */
+}
+
+
+/* ================================================
+   HERO SECTION
+   The big image banner at the top of the page.
+   ================================================ */
+.hero-section {
+  /* No extra padding needed — the image fills the space */
+  width: 100%;
+  position: relative; /* needed so child elements can be positioned inside it */
+}
+
+/* The gray box that acts as a hero background image placeholder */
+.hero-background-image {
+  width: 100%;
+  height: 280px;
+  /* Position relatively so the text overlay can sit on top */
+  position: relative;
+  /* Hide anything that spills outside the box */
+  overflow: hidden;
+}
+
+/* The hero image that fills the background image box */
+.hero-placeholder-img {
+  width: 100%;
+  height: 100%;
+  /* Make it cover the full area and center the image */
+  object-fit: cover;
+  object-position: center;
+}
+
+/* White fade overlay for text visibility */
+.hero-background-image::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Slight white gradient fade for better text readability */
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0.5) 100%
+  );
+  pointer-events: none; /* Allows clicks to pass through to content */
+}
+
+/* The text block that floats over the hero image */
+.hero-text-overlay {
+  /* Remove it from the normal document flow so it can sit on top */
+  position: absolute;
+  /* Place it 32px from the bottom and 32px from the left */
+  bottom: 32px;
+  left: 32px;
+}
+
+/* Main hero heading: "Welcome To TradChat!" */
+.hero-main-heading {
+  font-family: var(--font-heading);
+  font-size: 36px;
+  color: var(--color-dark);
+  /* A light shadow helps the text stand out over the image */
+  text-shadow: 1px 2px 8px rgba(255, 255, 255, 0.6);
+  margin-bottom: 6px;
+}
+
+/* Sub-heading: "The Future of Safe Social Media" */
+.hero-subheading {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-dark);
+  text-shadow: 1px 1px 4px rgba(255, 255, 255, 0.5);
+}
+
+
+/* ================================================
+   ABOUT US SECTION
+   The content section below the hero.
+   ================================================ */
+.about-section {
+  /* Comfortable padding on all sides */
+  padding: 48px 32px;
+  max-width: 960px;   /* Don't let it stretch too wide on large screens */
+  margin: 0 auto;     /* Center it horizontally */
+}
+
+/* "About Us:" heading */
+.about-section-heading {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  color: var(--color-dark);
+  margin-bottom: 24px;
+  /* A bottom border gives a clean underline effect */
+  border-bottom: 2px solid var(--color-medium);
+  padding-bottom: 10px;
+}
+
+/* A two-column grid: text on the left, image on the right */
+.about-content-grid {
+  display: grid;
+  /* Two equal-width columns */
+  grid-template-columns: 1fr 1fr;
+  /* 40px of space between columns */
+  gap: 40px;
+  align-items: start; /* align to the top */
+}
+
+/* Left column: text content */
+.about-text-column {
+  display: flex;
+  flex-direction: column; /* stack paragraphs and button vertically */
+  gap: 16px;              /* space between each child */
+}
+
+/* Each paragraph in the about section */
+.about-paragraph {
+  font-size: 15px;
+  line-height: 1.7; /* 1.7 = comfortable reading line height */
+  color: var(--color-dark);
+}
+
+/* "Learn More" button below the text */
+.about-learn-more-button {
+  /* Only as wide as it needs to be (not full-width) */
+  align-self: flex-start;
+  background-color: var(--color-dark);
+  color: var(--color-light);
+  padding: 12px 28px;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.about-learn-more-button:hover {
+  background-color: var(--color-accent);
+}
+
+/* Right column: decorative image placeholder */
+.about-image-column {
+  width: 100%;
+}
+
+/* The gray image placeholder box */
+.about-image-placeholder {
+  width: 100%;
+  height: 200px;
+  background-color: #d0ccc8;
+  border-radius: 8px;
+  overflow: hidden; /* keep the SVG inside the rounded box */
+}
+
+/* The SVG inside the image placeholder */
+.about-image-placeholder svg {
+  width: 100%;
+  height: 100%;
+}
+
+
+/* ================================================
+   FOOTER
+   The strip at the very bottom of the page.
+   ================================================ */
+.site-footer {
+  background-color: var(--color-dark);
+  color: var(--color-medium);
+  text-align: center;
+  padding: 20px 24px;
+  font-size: 13px;
+}
+
+.footer-copyright {
+  letter-spacing: 0.3px;
+}
+
+
+/* ================================================
+   RESPONSIVE DESIGN
+   On small screens (mobile phones), switch the
+   two-column "About" layout to a single column.
+   ================================================ */
+@media (max-width: 640px) {
+
+  /* Stack the about-section columns on top of each other */
+  .about-content-grid {
+    grid-template-columns: 1fr; /* just one column */
+  }
+
+  /* Make the hero text a bit smaller on phones */
+  .hero-main-heading {
+    font-size: 26px;
+  }
+
+  /* Shrink the hero height on small screens */
+  .hero-background-image {
+    height: 200px;
+  }
+
+  /* Move the text a bit higher on small screens */
+  .hero-text-overlay {
+    bottom: 20px;
+    left: 20px;
+  }
+
+  /* Make the modal card narrower on mobile */
+  .login-modal-card {
+    margin: 0 16px;
+    padding: 36px 24px 32px 24px;
+  }
+
+}
