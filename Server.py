@@ -4,6 +4,12 @@ from werkzeug.utils import secure_filename
 import sqlite3
 import os
 import secrets
+from threading import Thread as T
+
+
+def remove_go_spaces(text):
+    """Remove all spaces from text"""
+    return text.replace(" ", "")
 
 
 # Create application and Server
@@ -15,14 +21,14 @@ Server = SocketIO(app)
 
 
 accounts_db_exists = os.path.exists("accounts.db")
-rooms_db_exists = os.path.exists("rooms_names.db")
+rooms_db_exists = os.path.exists("rooms.db")
 
 # make basic databases
 accounts_db = sqlite3.connect("accounts.db")
 accounts = accounts_db.cursor()
 
-room_names_db = sqlite3.connect("rooms_names.db")
-room_names = room_names_db.cursor()
+rooms_db = sqlite3.connect("rooms.db")
+rooms = rooms_db.cursor()
 
 # Create tables if databases didn't exist
 if not accounts_db_exists:
@@ -31,23 +37,24 @@ if not accounts_db_exists:
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             username TEXT NOT NULL,
             password TEXT NOT NULL,
-            DOB TEXT NOT NULL,
+            first_name TEXT NOT NULL,
+            last_name TEXT NOT NULL,
+            email TEXT NOT NULL,
+            dob TEXT NOT NULL,
+            gender TEXT NOT NULL,
             theme TEXT NOT NULL
-        )
+        );
     ''')
-    accounts_db.commit()
 
 if not rooms_db_exists:
-    room_names.execute('''
+    rooms.execute('''
         CREATE TABLE rooms (
             roomid INTEGER PRIMARY KEY AUTOINCREMENT,
             roomname TEXT NOT NULL,
             roomtype TEXT NOT NULL,
             invites TEXT
-        )
+        );
     ''')
-    room_names_db.commit()
-
 
 
 @app.route('/')
@@ -103,6 +110,46 @@ def upload_file():
             flash('File type not allowed')
     
     return render_template('upload.html')
+
+
+
+def Recv(message):
+    msg = eval(message)
+    if msg[0] == 'Create Account':
+        data = msg[1]
+        
+        username = data['username']
+
+        # Check if username already exists (case-insensitive and no spaces)
+        clean_username = remove_go_spaces(username.lower())
+        accounts.execute("SELECT username FROM accounts")
+        queryResult = accounts.fetchall()
+        existing_usernames = [remove_go_spaces(row[0].lower()) for row in queryResult]
+
+        if clean_username in existing_usernames:
+            Server.send(str(['Create Account Results', data['username'], 'Username Exists']))
+            return
+
+        password = data['password']
+        first_name = data['first_name']
+        last_name = data['last_name']
+        email = data['email']
+        dob = data['dob']
+        gender = data['gender']
+
+
+        # Username available - create account
+        accounts.execute(f"""
+        INSERT INTO accounts (username, password, first_name, last_name, email, dob, gender, theme)
+        VALUES ('{username}', '{password}', '{first_name}', '{last_name}', '{email}', '{dob}', '{gender}', 'classic');
+        """)
+        accounts.execute("COMMIT;")
+        
+        Server.send(str(['Create Account Results', data['username'], 'Success']))
+
+@Server.on('message')
+def recv(message):
+    T(Recv, args=(message,))
 
 
 if __name__ == "__main__":

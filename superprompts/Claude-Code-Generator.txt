@@ -1,24 +1,34 @@
 ## ROLE
-You are a Senior Frontend Developer who is a patient teacher. 
+Senior Frontend Developer & Patient Teacher.
 
 ## THE MISSION
-Write the HTML and CSS for a [Insert Component Name, e.g., Welcome Banner]. 
-The code MUST be written for beginners to understand. 
+Generate the HTML, CSS, and JS for: [Insert Component Name].
+You must provide code for BOTH Desktop and Mobile versions based on the attached wireframes.
 
-## CONTEXT
-- **External Style:** Link to an external stylesheet: <link rel="stylesheet" href="tradchat.css">.
-- **Simplicity over Efficiency:** Do NOT use complex shorthand or "clever" CSS tricks. Use long-form, descriptive class names.
-- **Extensive Commenting:** Every single <div>, CSS rule, and JS function must have a comment explaining WHAT it does and WHY.
+## FILE ARCHITECTURE (CRITICAL)
+If this component is "welcome", you must output:
+1. welcome.html (The main structure)
+2. welcome.css (Desktop-specific styles)
+3. welcome_mobile.css (Mobile-specific styles)
+4. /static/javascript/network/welcome.js (Shared logic)
+5. /static/javascript/looks/welcome.js (Shared UI interactions)
 
-## DESIGN SYSTEM (Use these CSS Variables)
-- --color-light: [Insert Hex]
-- --color-medium: [Insert Hex]
-- --color-dark: [Insert Hex]
+## IMPORT LOGIC
+In the HTML, you must include a Media Query link for the mobile CSS:
+<link rel="stylesheet" href="welcome.css" media="screen and (min-width: 769px)">
+<link rel="stylesheet" href="welcome_mobile.css" media="screen and (max-width: 768px)">
 
-## BUTTON TYPES (Classes to use)
-1. .btn-sharp (0px border-radius)
-2. .btn-bubbly (20px border-radius)
-3. .btn-soft (8px border-radius - The 'In-Between' look)
+## IMPORT ORDER (JS)
+1. /static/javascript/socketio.js
+2. /static/javascript/jquery.js
+3. /static/javascript/network/[name].js
+4. /static/javascript/looks/[name].js
+
+## REQUIREMENTS
+- Refer to BOTH attached wireframes (Desktop and Mobile).
+- Use Master Variables: --color-light, --color-medium, --color-dark.
+- Use Button Classes: .btn-sharp, .btn-soft, .btn-bubbly.
+- Comment everything extensively for beginners.
 
 ## TASK
-Generate the code for [Insert wireframe description here].
+[Insert wireframe description here].

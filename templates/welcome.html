@@ -16,6 +16,10 @@
     rel="stylesheet"
   />
 
+  <!-- jQuery and Socket.IO libraries -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+
   <!-- JavaScript files - network first, then looks -->
   <script src="/static/javascript/network/welcome.js"></script>
   <script src="/static/javascript/looks/welcome.js"></script>
@@ -76,7 +80,7 @@
       <!-- A link for users who don't have an account yet -->
       <p class="login-modal-signup-link">
         Don't have an account?
-        <a href="#" class="login-modal-anchor">Sign up</a>
+        <a href="#" class="login-modal-anchor" onclick="switchToSignupModal(); return false;">Sign up</a>
       </p>
 
       <!-- Forgot password link -->
@@ -150,6 +154,21 @@
         </div>
       </div>
 
+      <!-- Gender selection -->
+      <div class="signup-modal-field-group signup-modal-full-width">
+        <label class="signup-modal-label">Gender</label>
+        <div class="signup-modal-gender-group">
+          <label class="signup-modal-radio-label">
+            <input type="radio" name="gender" value="male" class="signup-modal-radio">
+            <span class="signup-modal-radio-text">Male</span>
+          </label>
+          <label class="signup-modal-radio-label">
+            <input type="radio" name="gender" value="female" class="signup-modal-radio">
+            <span class="signup-modal-radio-text">Female</span>
+          </label>
+        </div>
+      </div>
+
       <!-- Full width: Username -->
       <div class="signup-modal-field-group signup-modal-full-width">
         <label class="signup-modal-label" for="signup-username-input">Username</label>
@@ -170,21 +189,6 @@
           class="signup-modal-input"
           placeholder="Password"
         />
-      </div>
-
-      <!-- Gender selection -->
-      <div class="signup-modal-field-group signup-modal-full-width">
-        <label class="signup-modal-label">Gender</label>
-        <div class="signup-modal-gender-group">
-          <label class="signup-modal-radio-label">
-            <input type="radio" name="gender" value="male" class="signup-modal-radio">
-            <span class="signup-modal-radio-text">Male</span>
-          </label>
-          <label class="signup-modal-radio-label">
-            <input type="radio" name="gender" value="female" class="signup-modal-radio">
-            <span class="signup-modal-radio-text">Female</span>
-          </label>
-        </div>
       </div>
 
       <!-- The main Submit button -->
