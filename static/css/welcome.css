@@ -137,10 +137,11 @@ body {
 
 .login-modal-heading {
   font-family: var(--font-heading);
-  font-size: 26px;
+  font-size: 28px;
   color: var(--color-dark);
-  margin-bottom: 4px;
+  margin-bottom: 32px;
   text-align: center;
+  font-weight: 700;
 }
 
 .login-modal-subheading {
@@ -157,24 +158,24 @@ body {
 
 .login-modal-field-group {
   width: 100%;
-  margin-bottom: 18px;
+  margin-bottom: 20px;
 }
 
 .login-modal-label {
   display: block;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   color: var(--color-dark);
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .login-modal-input {
   width: 100%;
-  padding: 12px 14px;
+  padding: 14px 16px;
   border: 1.5px solid var(--color-medium);
-  border-radius: 6px;
+  border-radius: 12px;
   font-family: var(--font-body);
-  font-size: 14px;
+  font-size: 15px;
   color: var(--color-dark);
   background-color: #fafafa;
   transition: border-color var(--transition-speed);
@@ -192,12 +193,14 @@ body {
 
 .login-modal-submit-button {
   width: 100%;
-  padding: 14px;
-  margin-top: 8px;
+  padding: 16px;
+  margin-top: 12px;
   background-color: var(--color-dark);
   color: #ffffff;
-  font-size: 15px;
+  font-size: 16px;
+  font-weight: 600;
   letter-spacing: 0.5px;
+  border-radius: 12px;
 }
 
 .login-modal-submit-button:hover {
@@ -210,8 +213,15 @@ body {
    ================================================ */
 
 .login-modal-signup-link {
-  margin-top: 20px;
-  font-size: 13px;
+  margin-top: 24px;
+  font-size: 14px;
+  color: var(--color-medium);
+  text-align: center;
+}
+
+.login-modal-forgot-link {
+  margin-top: 12px;
+  font-size: 14px;
   color: var(--color-medium);
   text-align: center;
 }
@@ -441,6 +451,200 @@ body {
 .about-image-placeholder svg {
   width: 100%;
   height: 100%;
+}
+
+
+/* ================================================
+   SIGNUP MODAL OVERLAY
+   The dark background that covers the whole screen
+   while the signup popup is visible.
+   ================================================ */
+
+.signup-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-overlay);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 1;
+  transition: opacity var(--transition-speed) ease;
+}
+
+.signup-modal-overlay-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+
+/* ================================================
+   SIGNUP MODAL CARD
+   ================================================ */
+
+.signup-modal-card {
+  background-color: #ffffff;
+  padding: 40px 32px;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 420px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: slide-up-fade-in 0.4s ease both;
+}
+
+.signup-modal-close-x {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: transparent;
+  color: var(--color-medium);
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+.signup-modal-close-x:hover {
+  background-color: var(--color-medium);
+  color: #ffffff;
+}
+
+
+/* ================================================
+   SIGNUP MODAL HEADING
+   ================================================ */
+
+.signup-modal-heading {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  color: var(--color-dark);
+  margin-bottom: 24px;
+  text-align: center;
+  font-weight: 700;
+}
+
+
+/* ================================================
+   SIGNUP MODAL FORM FIELDS
+   ================================================ */
+
+.signup-modal-field-group {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.signup-modal-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-dark);
+  margin-bottom: 6px;
+}
+
+.signup-modal-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--color-medium);
+  border-radius: 12px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--color-dark);
+  background-color: #fafafa;
+  transition: border-color var(--transition-speed);
+  outline: none;
+}
+
+.signup-modal-input:focus {
+  border-color: var(--color-accent);
+}
+
+/* ================================================
+   SIGNUP MODAL GENDER RADIO BUTTONS
+   ================================================ */
+
+.signup-modal-gender-group {
+  display: flex;
+  gap: 20px;
+  margin-top: 8px;
+}
+
+.signup-modal-radio-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--color-dark);
+}
+
+.signup-modal-radio {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--color-accent);
+}
+
+.signup-modal-radio-text {
+  font-size: 14px;
+}
+
+
+/* ================================================
+   SIGNUP MODAL SUBMIT BUTTON
+   ================================================ */
+
+.signup-modal-submit-button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 12px;
+  background-color: var(--color-dark);
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: background-color var(--transition-speed);
+}
+
+.signup-modal-submit-button:hover {
+  background-color: var(--color-accent);
+}
+
+
+/* ================================================
+   SIGNUP MODAL ROW LAYOUT
+   ================================================ */
+
+.signup-modal-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.signup-modal-row .signup-modal-field-group {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.signup-modal-full-width {
+  width: 100%;
 }
 
 

@@ -15,6 +15,10 @@
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Sans+3:wght@400;600&display=swap"
     rel="stylesheet"
   />
+
+  <!-- JavaScript files - network first, then looks -->
+  <script src="/static/javascript/network/welcome.js"></script>
+  <script src="/static/javascript/looks/welcome.js"></script>
 </head>
 <body>
 
@@ -37,17 +41,16 @@
       <img class="login-modal-logo-img" src="/static/logo.png" alt="TradChat Logo" width="80" height="80">
 
       <!-- The heading inside the modal -->
-      <h2 class="login-modal-heading">Welcome Back</h2>
-      <p class="login-modal-subheading">Log in to TradChat</p>
+      <h2 class="login-modal-heading">Welcome Back!</h2>
 
-      <!-- Email input field -->
+      <!-- Username input field -->
       <div class="login-modal-field-group">
-        <label class="login-modal-label" for="email-input">Email</label>
+        <label class="login-modal-label" for="username-input">Username</label>
         <input
-          type="email"
-          id="email-input"
+          type="text"
+          id="username-input"
           class="login-modal-input"
-          placeholder="you@example.com"
+          placeholder="Username"
         />
       </div>
 
@@ -76,9 +79,125 @@
         <a href="#" class="login-modal-anchor">Sign up</a>
       </p>
 
+      <!-- Forgot password link -->
+      <p class="login-modal-forgot-link">
+        <a href="#" class="login-modal-anchor">Forgot password?</a>
+      </p>
+
     </div><!-- end .login-modal-card -->
 
   </div><!-- end #login-modal-overlay -->
+
+
+  <!-- =============================================
+       THE SIGNUP MODAL OVERLAY
+       Hidden by default, can be shown via JavaScript
+       ============================================= -->
+  <div id="signup-modal-overlay" class="signup-modal-overlay" style="display: none;">
+
+    <!-- The white card in the center of the overlay -->
+    <div class="signup-modal-card">
+
+      <!-- X button to close modal -->
+      <button class="signup-modal-close-x" onclick="closeSignupModal()">×</button>
+
+      <!-- Logo at the top of the card -->
+      <img class="signup-modal-logo-img" src="/static/logo.png" alt="TradChat Logo" width="80" height="80">
+
+      <!-- The heading inside the modal -->
+      <h2 class="signup-modal-heading">We are Glad You are Here!</h2>
+
+      <!-- First row: First Name and Last Name -->
+      <div class="signup-modal-row">
+        <div class="signup-modal-field-group">
+          <label class="signup-modal-label" for="firstname-input">First Name</label>
+          <input
+            type="text"
+            id="firstname-input"
+            class="signup-modal-input"
+            placeholder="First Name"
+          />
+        </div>
+        <div class="signup-modal-field-group">
+          <label class="signup-modal-label" for="lastname-input">Last Name</label>
+          <input
+            type="text"
+            id="lastname-input"
+            class="signup-modal-input"
+            placeholder="Last Name"
+          />
+        </div>
+      </div>
+
+      <!-- Second row: Email and Date of Birth -->
+      <div class="signup-modal-row">
+        <div class="signup-modal-field-group">
+          <label class="signup-modal-label" for="signup-email-input">Email</label>
+          <input
+            type="email"
+            id="signup-email-input"
+            class="signup-modal-input"
+            placeholder="Email"
+          />
+        </div>
+        <div class="signup-modal-field-group">
+          <label class="signup-modal-label" for="dob-input">Date of Birth</label>
+          <input
+            type="date"
+            id="dob-input"
+            class="signup-modal-input"
+          />
+        </div>
+      </div>
+
+      <!-- Full width: Username -->
+      <div class="signup-modal-field-group signup-modal-full-width">
+        <label class="signup-modal-label" for="signup-username-input">Username</label>
+        <input
+          type="text"
+          id="signup-username-input"
+          class="signup-modal-input"
+          placeholder="Username"
+        />
+      </div>
+
+      <!-- Full width: Password -->
+      <div class="signup-modal-field-group signup-modal-full-width">
+        <label class="signup-modal-label" for="signup-password-input">Password</label>
+        <input
+          type="password"
+          id="signup-password-input"
+          class="signup-modal-input"
+          placeholder="Password"
+        />
+      </div>
+
+      <!-- Gender selection -->
+      <div class="signup-modal-field-group signup-modal-full-width">
+        <label class="signup-modal-label">Gender</label>
+        <div class="signup-modal-gender-group">
+          <label class="signup-modal-radio-label">
+            <input type="radio" name="gender" value="male" class="signup-modal-radio">
+            <span class="signup-modal-radio-text">Male</span>
+          </label>
+          <label class="signup-modal-radio-label">
+            <input type="radio" name="gender" value="female" class="signup-modal-radio">
+            <span class="signup-modal-radio-text">Female</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- The main Submit button -->
+      <button
+        class="signup-modal-submit-button"
+        onclick="closeSignupModal()"
+      >
+        Submit
+      </button>
+
+    </div><!-- end .signup-modal-card -->
+
+  </div><!-- end #signup-modal-overlay -->
 
 
   <!-- =============================================
@@ -107,7 +226,7 @@
           Log In
         </button>
         <!-- .btn-bubbly gives a pill/bubble shape -->
-        <button class="btn-bubbly navbar-signup-button">
+        <button class="btn-bubbly navbar-signup-button" onclick="openSignupModal()">
           Sign Up
         </button>
       </div>
@@ -177,72 +296,12 @@
     <!-- ---- FOOTER ---- -->
     <!-- The bottom strip of the page -->
     <footer class="site-footer">
-      <p class="footer-copyright">© 2025 TradChat. All rights reserved.</p>
+      <p class="footer-copyright">2025 TradChat. All rights reserved.</p>
     </footer>
 
   </div><!-- end #home-page -->
 
 
-  <!-- =============================================
-       JAVASCRIPT
-       This small script handles two things:
-       1. closeLoginModal() – hides the popup and
-          un-blurs the home page when user logs in.
-       2. openLoginModal() – shows the popup again
-          if the user clicks "Log In" in the nav.
-  ============================================= -->
-  <script>
-
-    /**
-     * closeLoginModal()
-     * Called when the user clicks the "Log In" button inside the modal.
-     * Step 1: Add the "fade out" CSS class to the overlay so it fades away.
-     * Step 2: Remove the "blurred" CSS class from the home page so it fades in.
-     */
-    function closeLoginModal() {
-      // Grab the modal overlay element from the page
-      var modalOverlay = document.getElementById("login-modal-overlay");
-
-      // Grab the home page element
-      var homePage = document.getElementById("home-page");
-
-      // Add a CSS class that triggers the fade-out animation on the overlay
-      modalOverlay.classList.add("login-modal-overlay-hidden");
-
-      // Remove the blurred class so the home page becomes clear and fully visible
-      homePage.classList.remove("home-page-blurred");
-
-      // After the fade-out animation finishes (0.5 seconds), fully hide the overlay
-      // so it can't accidentally be clicked on anymore
-      setTimeout(function() {
-        modalOverlay.style.display = "none";
-      }, 500); // 500 milliseconds = 0.5 seconds (matches our CSS transition)
-    }
-
-
-    /**
-     * openLoginModal()
-     * Called when the user clicks "Log In" in the navigation bar.
-     * It reverses what closeLoginModal() did — shows the modal again.
-     */
-    function openLoginModal() {
-      // Grab the modal overlay element
-      var modalOverlay = document.getElementById("login-modal-overlay");
-
-      // Grab the home page element
-      var homePage = document.getElementById("home-page");
-
-      // Make sure the overlay is visible again (undo the display:none)
-      modalOverlay.style.display = "flex";
-
-      // Remove the "hidden" class so it fades back in
-      modalOverlay.classList.remove("login-modal-overlay-hidden");
-
-      // Add the blurred class back to the home page so it dims again
-      homePage.classList.add("home-page-blurred");
-    }
-
-  </script>
 
 </body>
 </html>
