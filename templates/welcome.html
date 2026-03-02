@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TradChat – The Future of Safe Social Media</title>
 
+  <!-- Favicon for browser tab -->
+  <link rel="icon" type="image/x-icon" href="/static/logo.png">
+
   <!-- Link to our external stylesheet. All visual styling lives in tradchat.css -->
   <link rel="stylesheet" href="/static/css/tradchat.css" />
   <link rel="stylesheet" href="/static/css/welcome.css" />
@@ -73,7 +76,7 @@
       <!-- The main Log In button. Uses .btn-soft for a friendly rounded look -->
       <button
         class="btn-soft login-modal-submit-button"
-        onclick="closeLoginModal()"
+        onclick="LogInPressed()"
       >
         Log In
       </button>
@@ -195,9 +198,9 @@
       <!-- The main Submit button -->
       <button
         class="signup-modal-submit-button"
-        onclick="closeSignupModal()"
+        onclick="SignUpPressed()"
       >
-        Submit
+        Sign Up
       </button>
 
     </div><!-- end .signup-modal-card -->
@@ -220,7 +223,7 @@
       <!-- Left side: Logo + brand name -->
       <div class="navbar-brand">
         <!-- Logo image -->
-        <img class="navbar-logo-img" src="/static/logo.png" alt="TradChat Logo" width="28" height="28">
+        <img class="navbar-logo-img" src="/static/logo.png" alt="TradChat Logo" width="38" height="38">
         <span class="navbar-brand-name">TradChat</span>
       </div>
 

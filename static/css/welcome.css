@@ -260,51 +260,50 @@ body {
 
 .navbar {
   width: 100%;
-  height: 56px;
+  height: 80px; /* Reduced from 100px (20% smaller) */
   background-color: var(--color-dark);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-left: 24px;
-  padding-right: 24px;
+  padding: 0 24px;
 }
 
 .navbar-brand {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px; /* Reduced from 16px */
 }
 
-.navbar-logo-icon {
-  width: 28px;
-  height: 28px;
-  border: 2px solid var(--color-medium);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 12px;
-  color: var(--color-medium);
+.navbar-logo-img {
+  width: 38px; /* Reduced from 48px (20% smaller) */
+  height: 38px; /* Reduced from 48px (20% smaller) */
+  border-radius: 6px; /* Reduced from 8px */
 }
 
 .navbar-brand-name {
   font-family: var(--font-heading);
-  font-size: 18px;
+  font-size: 26px; /* Reduced from 32px (20% smaller) */
   color: var(--color-light);
   letter-spacing: 0.5px;
+  font-weight: 700;
 }
 
 .navbar-button-group {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 10px; /* Reduced from 12px */
 }
 
 .navbar-login-button {
   background-color: transparent;
   color: var(--color-light);
-  border: 1.5px solid var(--color-medium);
-  padding: 7px 18px;
-  font-size: 13px;
+  border: 2px solid var(--color-medium);
+  padding: 10px 20px; /* Reduced from 12px 24px */
+  border-radius: 6px;
+  font-size: 13px; /* Reduced from 16px */
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-speed);
 }
 
 .navbar-login-button:hover {
@@ -315,8 +314,12 @@ body {
 .navbar-signup-button {
   background-color: var(--color-accent);
   color: #ffffff;
-  padding: 7px 18px;
-  font-size: 13px;
+  padding: 10px 22px; /* Reduced from 12px 28px */
+  border-radius: 20px; /* Reduced from 24px */
+  font-size: 13px; /* Reduced from 16px */
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--transition-speed);
 }
 
 .navbar-signup-button:hover {
@@ -345,6 +348,7 @@ body {
   height: 100%;
   object-fit: cover;
   object-position: center;
+  border-radius: 0; /* Removed border radius */
 }
 
 .hero-background-image::after {
@@ -372,7 +376,7 @@ body {
 .hero-main-heading {
   font-family: var(--font-heading);
   font-size: 36px;
-  color: var(--color-dark);
+  color: var(--color-light);
   text-shadow: 1px 2px 8px rgba(255, 255, 255, 0.6);
   margin-bottom: 6px;
 }
@@ -380,7 +384,7 @@ body {
 .hero-subheading {
   font-size: 15px;
   font-weight: 600;
-  color: var(--color-dark);
+  color: var(--color-light);
   text-shadow: 1px 1px 4px rgba(255, 255, 255, 0.5);
 }
 
