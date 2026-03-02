@@ -6,6 +6,7 @@ import os
 import secrets
 from threading import Thread as T
 
+# .\.venv\Scripts\python.exe Server.py  To run the sever(for Benjamin)
 
 def remove_go_spaces(text):
     """Remove all spaces from text"""
