@@ -6,23 +6,25 @@ Generate the HTML, CSS, and JS for: [Insert Component Name].
 You must provide code for BOTH Desktop and Mobile versions based on the attached wireframes.
 
 ## FILE ARCHITECTURE (CRITICAL)
-If this component is "welcome", you must output:
-1. welcome.html (The main structure)
-2. welcome.css (Desktop-specific styles)
-3. welcome_mobile.css (Mobile-specific styles)
-4. /static/javascript/network/welcome.js (Shared logic)
-5. /static/javascript/looks/welcome.js (Shared UI interactions)
+You must custimize the name to the component
+1. [component name].html (The main structure)
+2. [component name].css (Desktop-specific styles)
+3. [component name]_mobile.css (Mobile-specific styles)
+4. /static/javascript/network/[component name].js (Shared logic)
+5. /static/javascript/looks/[component name].js (Shared UI interactions)
 
 ## IMPORT LOGIC
+You must custimize the name to the component
 In the HTML, you must include a Media Query link for the mobile CSS:
-<link rel="stylesheet" href="welcome.css" media="screen and (min-width: 769px)">
-<link rel="stylesheet" href="welcome_mobile.css" media="screen and (max-width: 768px)">
+<link rel="stylesheet" href="[component name].css" media="screen and (min-width: 769px)">
+<link rel="stylesheet" href="[component name]_mobile.css" media="screen and (max-width: 768px)">
 
 ## IMPORT ORDER (JS)
 1. /static/javascript/socketio.js
 2. /static/javascript/jquery.js
-3. /static/javascript/network/[name].js
-4. /static/javascript/looks/[name].js
+3. /static/javascript/tradchat.js
+4. /static/javascript/network/[component name].js
+5. /static/javascript/looks/[component name].js
 
 ## REQUIREMENTS
 - Refer to BOTH attached wireframes (Desktop and Mobile).

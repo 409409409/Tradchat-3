@@ -4,7 +4,65 @@ from werkzeug.utils import secure_filename
 import sqlite3
 import os
 import secrets
-from threading import Thread as T
+from threading import Thread, Event
+from queue import Queue
+
+
+# The central line for all DB tasks
+db_queue = Queue()
+
+def db_sql(sql, cursor_obj):
+    """
+    Intakes your global cursor and the SQL string.
+    Blocks until the background worker 'buzzes' back with data.
+    """
+    event = Event()
+    package = {
+        'cursor': cursor_obj,
+        'sql': sql,
+        'result': None,
+        'event': event
+    }
+
+    # Post the request to the worker thread
+    db_queue.put(package)
+
+    # Wait here (like a Promise) until the worker hits 'event.set()'
+    event.wait()
+
+    # The worker will have filled package['result']
+    data = package['result']
+    
+    # Logic: If it's a list (query results), return it. 
+    # If it's empty/None (an insert/update), return True.
+    if data:
+        return data
+    return True
+
+
+def db_worker():
+    while True:
+        # This line 'sleeps' the thread until something is put in the queue
+        package = db_queue.get()
+        
+        # 1. Execute the SQL
+        package['cursor'].execute(package['sql'])
+        
+        # 2. Check for results
+        res = package['cursor'].fetchall()
+        
+        # 3. Handle Commits (Systems logic: No results usually means a Write)
+        if not res:
+            package['cursor'].execute("COMMIT;")
+            package['result'] = True
+        else:
+            package['result'] = res
+            
+        # 4. The "Buzzer" - wakes up your main function
+        package['event'].set()
+        
+        # 5. Mark task as done in the queue
+        db_queue.task_done()
 
 
 def remove_go_spaces(text):
@@ -122,8 +180,7 @@ def Recv(message):
 
         # Check if username already exists (case-insensitive and no spaces)
         clean_username = remove_go_spaces(username.lower())
-        accounts.execute("SELECT username FROM accounts")
-        queryResult = accounts.fetchall()
+        queryResult = db_sql("SELECT username FROM accounts;", accounts)
         existing_usernames = [remove_go_spaces(row[0].lower()) for row in queryResult]
 
         if clean_username in existing_usernames:
@@ -139,18 +196,18 @@ def Recv(message):
 
 
         # Username available - create account
-        accounts.execute(f"""
+        db_sql(f"""
         INSERT INTO accounts (username, password, first_name, last_name, email, dob, gender, theme)
         VALUES ('{username}', '{password}', '{first_name}', '{last_name}', '{email}', '{dob}', '{gender}', 'classic');
-        """)
-        accounts.execute("COMMIT;")
+        """, accounts)
         
         Server.send(str(['Create Account Results', data['username'], 'Success']))
 
 @Server.on('message')
 def recv(message):
-    T(Recv, args=(message,))
+    Thread(Recv, args=(message,)).start()
 
 
 if __name__ == "__main__":
+    Thread(target=db_worker).start()
     Server.run(app, host='localhost', port=80, debug=True)
